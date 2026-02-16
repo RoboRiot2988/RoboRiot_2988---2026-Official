@@ -28,16 +28,16 @@ public class AutoDrive extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   // Setting the values here instead of in initialize feeds the watchdog on the
-  // arcade drive object
+  // tank drive object
   @Override
   public void execute() {
-    driveSubsystem.driveArcade(xSpeed, zRotation);
+    driveSubsystem.driveTank(xSpeed, zRotation);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    driveSubsystem.driveArcade(0, 0);
+    driveSubsystem.driveTank(0, 0);
   }
 
   // Returns true when the command should end.

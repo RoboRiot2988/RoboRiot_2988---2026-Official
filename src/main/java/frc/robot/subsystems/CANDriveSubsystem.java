@@ -74,4 +74,8 @@ public class CANDriveSubsystem extends SubsystemBase {
     drive.arcadeDrive(xSpeed, zRotation);
   }
 
+  public void driveTank(double leftSpeed, double rightSpeed) {
+    drive.tankDrive(leftSpeed, rightSpeed);
+  }
+
 }

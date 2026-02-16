@@ -6,7 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import static frc.robot.Constants.OperatorConstants.*;
 import frc.robot.commands.Drive;
@@ -30,7 +30,7 @@ public class RobotContainer {
   private final CANFuelSubsystem fuelSubsystem = new CANFuelSubsystem();
 
   // The driver's controller
-  private final CommandPS4Controller driverController = new CommandPS4Controller(
+  private final CommandXboxController driverController = new CommandXboxController(
       DRIVER_CONTROLLER_PORT);
 
   // The autonomous chooser
@@ -53,8 +53,8 @@ public class RobotContainer {
    * created via the {@link Trigger#Trigger(java.util.function.BooleanSupplier)}
    * constructor with an arbitrary predicate, or via the named factories in
    * {@link edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses
-   * for {@link CommandPS4Controller Xbox}/
-   * {@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller PS4}
+   * for {@link CommandXBoxController Xbox}/
+   * {@link edu.wpi.first.wpilibj2.command.button.CommandXBoxController PS4}
    * controllers or
    * {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
    * joysticks}.
@@ -62,13 +62,13 @@ public class RobotContainer {
   private void configureBindings() {
 
     // While the left bumper on operator controller is held, intake Fuel
-    driverController.L2().whileTrue(new Intake(fuelSubsystem));
+    driverController.leftTrigger().whileTrue(new Intake(fuelSubsystem));
     // While the right bumper on the operator controller is held, spin up for 1
     // second, then launch fuel. When the button is released, stop.
-    driverController.R2().whileTrue(new LaunchSequence(fuelSubsystem));
+    driverController.rightTrigger().whileTrue(new LaunchSequence(fuelSubsystem));
     // While the A button is held on the operator controller, eject fuel back out
     // the intake
-    driverController.square().whileTrue(new Eject(fuelSubsystem));
+    driverController.a().whileTrue(new Eject(fuelSubsystem));
 
     // Set the default command for the drive subsystem to the command provided by
     // factory with the values provided by the joystick axes on the driver
