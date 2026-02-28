@@ -24,9 +24,13 @@ public class Launch extends Command {
   // appropriate values for intaking
   @Override
   public void initialize() {
-    fuelSubsystem.setLauncherRoller(SmartDashboard.getNumber("Launching launcher roller value", LAUNCHING_LAUNCHER_VOLTAGE));
-    fuelSubsystem.setFeederRoller(SmartDashboard.getNumber("Launching feeder roller value", LAUNCHING_FEEDER_VOLTAGE));
-    fuelSubsystem.setIntakeRoller(SmartDashboard.getNumber("Launching intake roller value", INTAKING_INTAKE_VOLTAGE));
+    // fuelSubsystem.setLauncherRoller(SmartDashboard.getNumber("Launching launcher roller value", LAUNCHING_LAUNCHER_VOLTAGE));
+    // fuelSubsystem.setFeederRoller(SmartDashboard.getNumber("Launching feeder roller value", LAUNCHING_FEEDER_VOLTAGE));
+    // fuelSubsystem.setIntakeRoller(SmartDashboard.getNumber("Launching intake roller value", INTAKING_INTAKE_VOLTAGE));
+
+    fuelSubsystem.setLauncherRoller(12);
+    fuelSubsystem.setFeederRoller(8);
+    fuelSubsystem.setIntakeRoller(10);
   }
 
   // Called every time the scheduler runs while the command is scheduled. This
