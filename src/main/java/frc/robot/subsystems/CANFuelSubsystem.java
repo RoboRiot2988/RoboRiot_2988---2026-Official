@@ -16,12 +16,17 @@ import static frc.robot.Constants.FuelConstants.*;
 
 public class CANFuelSubsystem extends SubsystemBase {
   private final SparkMax feederRoller;
-  private final SparkMax intakeLauncherRoller;
+  private final SparkMax launcherRoller;
+  private final SparkMax intakeRoller;
+
+  //intakeLauncherRoller --> launcherRoller
+  //new roller created: intakeRoller
 
   /** Creates a new CANBallSubsystem. */
   public CANFuelSubsystem() {
     // create brushed motors for each of the motors on the launcher mechanism
-    intakeLauncherRoller = new SparkMax(INTAKE_LAUNCHER_MOTOR_ID, MotorType.kBrushed);
+    launcherRoller = new SparkMax(LAUNCHER_MOTOR_ID, MotorType.kBrushed);
+    intakeRoller = new SparkMax(INTAKE_MOTOR_ID, MotorType.kBrushed);
     feederRoller = new SparkMax(FEEDER_MOTOR_ID, MotorType.kBrushed);
 
     // create the configuration for the feeder roller, set a current limit and apply
@@ -36,7 +41,13 @@ public class CANFuelSubsystem extends SubsystemBase {
     SparkMaxConfig launcherConfig = new SparkMaxConfig();
     launcherConfig.inverted(true);
     launcherConfig.smartCurrentLimit(LAUNCHER_MOTOR_CURRENT_LIMIT);
-    intakeLauncherRoller.configure(launcherConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    launcherRoller.configure(launcherConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
+    // create the configuration for the intake roller, set a current limit and apply
+    // the config to the controller
+    SparkMaxConfig intakeConfig = new SparkMaxConfig();
+    intakeConfig.smartCurrentLimit(FEEDER_MOTOR_CURRENT_LIMIT);
+    intakeRoller.configure(intakeConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     // put default values for various fuel operations onto the dashboard
     // all commands using this subsystem pull values from the dashbaord to allow
@@ -50,11 +61,16 @@ public class CANFuelSubsystem extends SubsystemBase {
   }
 
   // A method to set the voltage of the intake roller
-  public void setIntakeLauncherRoller(double voltage) {
-    intakeLauncherRoller.setVoltage(voltage);
+  public void setIntakeRoller(double voltage) {
+    intakeRoller.setVoltage(voltage);
   }
 
-  // A method to set the voltage of the intake roller
+  // A method to set the voltage of the launcher roller
+  public void setLauncherRoller(double voltage) {
+    launcherRoller.setVoltage(voltage);
+  }
+
+  // A method to set the voltage of the feeder roller
   public void setFeederRoller(double voltage) {
     feederRoller.setVoltage(voltage);
   }
@@ -62,7 +78,8 @@ public class CANFuelSubsystem extends SubsystemBase {
   // A method to stop the rollers
   public void stop() {
     feederRoller.set(0);
-    intakeLauncherRoller.set(0);
+    launcherRoller.set(0);
+    intakeRoller.set(0);
   }
 
   @Override
