@@ -4,44 +4,52 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.CANFuelSubsystem;
-import static frc.robot.Constants.FuelConstants.*;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class Launch extends Command {
   /** Creates a new Intake. */
 
-  CANFuelSubsystem fuelSubsystem;
+  private final CANFuelSubsystem fuelSubsystem;
+  private final Timer timer = new Timer();
+  private boolean staged = false;
 
   public Launch(CANFuelSubsystem fuelSystem) {
     addRequirements(fuelSystem);
     this.fuelSubsystem = fuelSystem;
   }
 
-  // Called when the command is initially scheduled. Set the rollers to the
-  // appropriate values for intaking
+  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // fuelSubsystem.setLauncherRoller(SmartDashboard.getNumber("Launching launcher roller value", LAUNCHING_LAUNCHER_VOLTAGE));
-    // fuelSubsystem.setFeederRoller(SmartDashboard.getNumber("Launching feeder roller value", LAUNCHING_FEEDER_VOLTAGE));
-    // fuelSubsystem.setIntakeRoller(SmartDashboard.getNumber("Launching intake roller value", INTAKING_INTAKE_VOLTAGE));
+    // start timer and run only launcher for 0.5s
+    timer.reset();
+    timer.start();
+    staged = false;
 
     fuelSubsystem.setLauncherRoller(12);
-    fuelSubsystem.setFeederRoller(8);
-    fuelSubsystem.setIntakeRoller(10);
+    fuelSubsystem.setFeederRoller(0);
+    fuelSubsystem.setIntakeRoller(0);
   }
 
-  // Called every time the scheduler runs while the command is scheduled. This
-  // command doesn't require updating any values while running
+  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // after 0.5 seconds, enable feeder and intake while keeping launcher running
+    if (!staged && timer.hasElapsed(0.75)) {
+      fuelSubsystem.setFeederRoller(10);
+      fuelSubsystem.setIntakeRoller(10);
+      staged = true;
+    }
   }
 
   // Called once the command ends or is interrupted. Stop the rollers
   @Override
   public void end(boolean interrupted) {
+    timer.stop();
+    fuelSubsystem.stop();
   }
 
   // Returns true when the command should end.

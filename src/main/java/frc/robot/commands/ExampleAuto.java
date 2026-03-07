@@ -17,19 +17,16 @@ public class ExampleAuto extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
   addCommands(
-    new AutoDrive(driveSubsystem, 1.0, 1.0).withTimeout(1.15),
-    new AutoDrive(driveSubsystem, 0.0, 0.0).withTimeout(1.15),
+    new AutoDrive(driveSubsystem, 0.5, 0.5).withTimeout(2.3),
+    new AutoDrive(driveSubsystem, 0.0, 0.0).withTimeout(1.0),
     
-    new Button_O(ballSubsystem).withTimeout(1.0),
-    new Launch(ballSubsystem).withTimeout(3.0),
+    new Launch(ballSubsystem).withTimeout(3.5),
 
     new Intake(ballSubsystem).withTimeout(1.0),
-    new Button_O(ballSubsystem).withTimeout(1.0),
-    new Launch(ballSubsystem).withTimeout(3.0),
+    new Launch(ballSubsystem).withTimeout(3.5),
 
     new Intake(ballSubsystem).withTimeout(1.0),
-    new Button_O(ballSubsystem).withTimeout(1.0),
-    new Launch(ballSubsystem).withTimeout(3.0)
+    new Launch(ballSubsystem).withTimeout(3.5)
 
 
     //RIGHT AUTO
