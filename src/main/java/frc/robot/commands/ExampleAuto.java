@@ -16,15 +16,12 @@ public class ExampleAuto extends SequentialCommandGroup {
   public ExampleAuto(CANDriveSubsystem driveSubsystem, CANFuelSubsystem ballSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-    // Drive backwards for .25 seconds. The driveArcadeAuto command factory
-    // intentionally creates a command which does not end which allows us to control
-    // the timing using the withTimeout decorator
-    new AutoDrive(driveSubsystem,1.0,  0.0).withTimeout(1.0),
-    new AutoDrive(driveSubsystem, -1.0, 0.0).withTimeout(1.0));
-    // Spin up the launcher for 1 second and then launch balls for 9 seconds, for a
-    // // total of 10 seconds
-    // new Intake(ballSubsystem).withTimeout(10),
-    // new Launch(ballSubsystem).withTimeout(10));
+  addCommands(
+    new AutoDrive(driveSubsystem, 1.0, 1.0).withTimeout(2.0),
+    new AutoDrive(driveSubsystem, 0.0, 0.0).withTimeout(1.0),
+    
+    new Button_O(ballSubsystem).withTimeout(0.5),
+    new Launch(ballSubsystem).withTimeout(2.0)
+  );
   }
 }
