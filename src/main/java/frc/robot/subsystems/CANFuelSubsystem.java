@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.FuelConstants.*;
 
@@ -87,7 +89,11 @@ public class CANFuelSubsystem extends SubsystemBase {
     intakeRoller.set(0);
   }
 
+<<<<<<< HEAD
  public Command setLaunch(double speed) {
+=======
+  public Command setLaunch(double speed) {
+>>>>>>> main
     return new InstantCommand(() -> feederRoller.set(speed), this);
   }
 
