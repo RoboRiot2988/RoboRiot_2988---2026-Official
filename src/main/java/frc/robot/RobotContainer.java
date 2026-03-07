@@ -4,8 +4,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import static frc.robot.Constants.OperatorConstants.*;
@@ -22,6 +24,8 @@ import frc.robot.commands.Launch;
 import frc.robot.commands.LaunchSequence;
 import frc.robot.subsystems.CANDriveSubsystem;
 import frc.robot.subsystems.CANFuelSubsystem;
+
+import com.pathplanner.lib.auto.NamedCommands;
 
 // import com.pathplanner.lib.auto.PathPlannerAuto;
 
@@ -49,11 +53,15 @@ public class RobotContainer {
    */
   public RobotContainer() {
     configureBindings();
+    DriverStation.silenceJoystickConnectionWarning(true);
+    NamedCommands.registerCommand("Button_O", fuelSubsystem.set(-0.3)); // this references a command, but may need to change to subsystem?
+    NamedCommands.registerCommand("Intake", fuelSubsystem.setSpeed(0.0));
+    NamedCommands.registerCommand("Launch", fuelSubsystem.setSpeed(0.3));
     
     // Set the options to show up in the Dashboard for selecting auto modes. If you
     // add additional auto modes you can add additional lines here with
     // autoChooser.addOption
-    autoChooser.setDefaultOption("Simple Auto", new ExampleAuto(driveSubsystem, fuelSubsystem));
+    autoChooser.setDefaultOption("Auto 1", new ExampleAuto(driveSubsystem, fuelSubsystem));
 
     // populate event map
     // eventMap.put("INTAKE", new Intake(fuelSubsystem));
