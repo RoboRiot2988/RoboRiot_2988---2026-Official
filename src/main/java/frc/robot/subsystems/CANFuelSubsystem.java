@@ -11,6 +11,8 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.SparkMax;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.FuelConstants.*;
 
@@ -82,6 +84,10 @@ public class CANFuelSubsystem extends SubsystemBase {
     feederRoller.set(0);
     launcherRoller.set(0);
     intakeRoller.set(0);
+  }
+
+  public Command setLaunch(double speed) {
+    return new InstantCommand(() -> feederRoller.set(speed), this);
   }
 
   @Override

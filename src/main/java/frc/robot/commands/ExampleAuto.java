@@ -17,15 +17,52 @@ public class ExampleAuto extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
   addCommands(
-    new AutoDrive(driveSubsystem, 0.5, 0.6).withTimeout(2.25),
+    new AutoDrive(driveSubsystem, 1.0, 1.0).withTimeout(1.0),
     new AutoDrive(driveSubsystem, 0.0, 0.0).withTimeout(1.0),
     
     new Button_O(ballSubsystem).withTimeout(1.0),
-    new Launch(ballSubsystem).withTimeout(5.0),
+    new Launch(ballSubsystem).withTimeout(3.0),
 
-    new Intake(ballSubsystem).withTimeout(2.0),
+    new Intake(ballSubsystem).withTimeout(1.0),
     new Button_O(ballSubsystem).withTimeout(1.0),
-    new Launch(ballSubsystem).withTimeout(5.0)
+    new Launch(ballSubsystem).withTimeout(3.0),
+
+    new Intake(ballSubsystem).withTimeout(1.0),
+    new Button_O(ballSubsystem).withTimeout(1.0),
+    new Launch(ballSubsystem).withTimeout(3.0)
+
+
+    //RIGHT AUTO
+    // new AutoDrive(driveSubsystem, 0.5, 0.5).withTimeout(1.0),
+    // new AutoDrive(driveSubsystem, 0.0, 0.0).withTimeout(1.0),
+    // new AutoDrive(driveSubsystem, -0.5, 0.5).withTimeout(1.0),
+    
+    // new Button_O(ballSubsystem).withTimeout(1.0),
+    // new Launch(ballSubsystem).withTimeout(3.0),
+
+    // new Intake(ballSubsystem).withTimeout(1.0),
+    // new Button_O(ballSubsystem).withTimeout(1.0),
+    // new Launch(ballSubsystem).withTimeout(3.0),
+
+    // new Intake(ballSubsystem).withTimeout(1.0),
+    // new Button_O(ballSubsystem).withTimeout(1.0),
+    // new Launch(ballSubsystem).withTimeout(3.0)
+
+    //LEFT AUTO
+    // new AutoDrive(driveSubsystem, 0.5, 0.5).withTimeout(1.0),
+    // new AutoDrive(driveSubsystem, 0.0, 0.0).withTimeout(1.0),
+    // new AutoDrive(driveSubsystem, 0.5, -0.5).withTimeout(1.0),
+    
+    // new Button_O(ballSubsystem).withTimeout(1.0),
+    // new Launch(ballSubsystem).withTimeout(3.0),
+
+    // new Intake(ballSubsystem).withTimeout(1.0),
+    // new Button_O(ballSubsystem).withTimeout(1.0),
+    // new Launch(ballSubsystem).withTimeout(3.0),
+
+    // new Intake(ballSubsystem).withTimeout(1.0),
+    // new Button_O(ballSubsystem).withTimeout(1.0),
+    // new Launch(ballSubsystem).withTimeout(3.0)
   );
   }
 }
