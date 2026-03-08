@@ -43,6 +43,35 @@ public class ExampleAuto extends SequentialCommandGroup {
 
     new Intake(ballSubsystem).withTimeout(1.0),
     new Launch(ballSubsystem).withTimeout(3.5)
+
+
+    //RIGHT AUTO
+    // new Button_O(ballSubsystem).withTimeout(1.0),
+    // new Launch(ballSubsystem).withTimeout(3.0),
+
+    // new Intake(ballSubsystem).withTimeout(1.0),
+    // new Button_O(ballSubsystem).withTimeout(1.0),
+    // new Launch(ballSubsystem).withTimeout(3.0),
+
+    // new Intake(ballSubsystem).withTimeout(1.0),
+    // new Button_O(ballSubsystem).withTimeout(1.0),
+    // new Launch(ballSubsystem).withTimeout(3.0)
+
+    // new AutoDrive(driveSubsystem, 0.5, 0.5).withTimeout(1.0),
+
+    //LEFT AUTO
+    // new Button_O(ballSubsystem).withTimeout(1.0),
+    // new Launch(ballSubsystem).withTimeout(3.0),
+
+    // new Intake(ballSubsystem).withTimeout(1.0),
+    // new Button_O(ballSubsystem).withTimeout(1.0),
+    // new Launch(ballSubsystem).withTimeout(3.0),
+
+    // new Intake(ballSubsystem).withTimeout(1.0),
+    // new Button_O(ballSubsystem).withTimeout(1.0),
+    // new Launch(ballSubsystem).withTimeout(3.0)
+
+    // new AutoDrive(driveSubsystem, 0.5, 0.5).withTimeout(1.0),
   );
   }
 }
