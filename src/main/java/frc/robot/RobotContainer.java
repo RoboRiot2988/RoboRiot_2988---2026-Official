@@ -54,9 +54,7 @@ public class RobotContainer {
   public RobotContainer() {
     configureBindings();
     DriverStation.silenceJoystickConnectionWarning(true);
-    NamedCommands.registerCommand("Button_O", fuelSubsystem.setLaunch(-0.3)); // this references a command, but may need to change to subsystem?
-    // NamedCommands.registerCommand("Intake", fuelSubsystem.setSpeed(0.0));
-    // NamedCommands.registerCommand("Launch", fuelSubsystem.setSpeed(0.3));
+    NamedCommands.registerCommand("Button_O", fuelSubsystem.setLaunch(10)); // this references a command, but may need to change to subsystem?
     
     // Set the options to show up in the Dashboard for selecting auto modes. If you
     // add additional auto modes you can add additional lines here with
@@ -110,6 +108,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return autoChooser.getSelected();
+    return driveSubsystem.getAutonomousCommand("Test");
+    // return autoChooser.getSelected();
   }
 }
