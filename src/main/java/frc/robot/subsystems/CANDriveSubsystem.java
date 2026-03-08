@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import static edu.wpi.first.units.Units.Meter;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.commands.PathfindingCommand;
@@ -23,7 +25,10 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -38,6 +43,15 @@ public class CANDriveSubsystem extends SubsystemBase {
   private final DifferentialDrive drive;
 
   public CANDriveSubsystem() {
+  boolean blueAlliance = false;
+    Pose2d startingPose = blueAlliance ? new Pose2d(new Translation2d(Meter.of(1),
+                                                                      Meter.of(4)),
+                                                    Rotation2d.fromDegrees(0))
+                                       : new Pose2d(new Translation2d(Meter.of(16),
+                                                                      Meter.of(4)),
+                                                    Rotation2d.fromDegrees(180));
+    // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary objects b
+
     // create brushed motors for drive
     leftLeader = new SparkMax(LEFT_LEADER_ID, MotorType.kBrushed);
     leftFollower = new SparkMax(LEFT_FOLLOWER_ID, MotorType.kBrushed);
@@ -108,11 +122,6 @@ public class CANDriveSubsystem extends SubsystemBase {
   public void periodic() {
   }
 
-  public Command getAutonomousCommand(String pathName)
-    {
-      // Create a path following command using AutoBuilder. This will also trigger event markers.
-      return new PathPlannerAuto(pathName);
-    }
 
   public void driveArcade(double xSpeed, double zRotation) {
     drive.arcadeDrive(xSpeed, zRotation);
@@ -138,9 +147,11 @@ public class CANDriveSubsystem extends SubsystemBase {
    *
    * @param initialHolonomicPose The pose to set the odometry to
    */
-  public void resetOdometry(Pose2d initialHolonomicPose)
+ 
+
+  public void resetPose(Pose2d initialLTVPose)
   {
-    drive.resetOdometry(initialHolonomicPose);
+    drive.resetOdometry(initialLTVPose);
   }
 
   /**
