@@ -39,8 +39,8 @@ public class Launch extends Command {
   public void execute() {
     // after 0.5 seconds, enable feeder and intake while keeping launcher running
     if (!staged && timer.hasElapsed(0.75)) {
-      fuelSubsystem.setFeederRoller(10);
-      fuelSubsystem.setIntakeRoller(10);
+      fuelSubsystem.setFeederRoller(12);
+      fuelSubsystem.setIntakeRoller(12);
       staged = true;
     }
   }

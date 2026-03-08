@@ -45,13 +45,13 @@ public class Robot extends TimedRobot {
     // Start both USB cameras (device indices 0 and 1). If your roboRIO only
     // enumerates one camera, check /dev/video* on the roboRIO and verify USB
     // power/hub. Use lower resolution/FPS if you have bandwidth or power issues.
-    UsbCamera cam0 = CameraServer.startAutomaticCapture("USB Camera 0", "/dev/video0");
+    UsbCamera cam0 = CameraServer.startAutomaticCapture("USB Camera 0", 0);
     cam0.setResolution(320, 240);
-    cam0.setFPS(15);
+    cam0.setFPS(10);
 
     UsbCamera cam1 = CameraServer.startAutomaticCapture("USB Camera 1", 1);
-    cam1.setResolution(1280, 560);
-    cam1.setFPS(15);
+    cam1.setResolution(320, 240);
+    cam1.setFPS(10);
 
     
   }
