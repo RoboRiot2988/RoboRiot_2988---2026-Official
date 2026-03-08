@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -41,7 +42,16 @@ public class Robot extends TimedRobot {
     // Used to track usage of Kitbot code, please do not remove.
     HAL.report(tResourceType.kResourceType_Framework, 10);
 
-    CameraServer.startAutomaticCapture();
+    // Start both USB cameras (device indices 0 and 1). If your roboRIO only
+    // enumerates one camera, check /dev/video* on the roboRIO and verify USB
+    // power/hub. Use lower resolution/FPS if you have bandwidth or power issues.
+    UsbCamera cam0 = CameraServer.startAutomaticCapture("USB Camera 0", "/dev/video0");
+    cam0.setResolution(320, 240);
+    cam0.setFPS(15);
+
+    UsbCamera cam1 = CameraServer.startAutomaticCapture("USB Camera 1", 1);
+    cam1.setResolution(1280, 560);
+    cam1.setFPS(15);
 
     
   }
