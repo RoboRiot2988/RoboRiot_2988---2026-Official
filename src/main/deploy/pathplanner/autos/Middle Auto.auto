@@ -9,6 +9,60 @@
           "data": {
             "pathName": "Middle - 1"
           }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Launch"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.75
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Feeder"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 5.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Launch_Stop"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Feeder_Stop"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Middle - 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Middle - 3"
+          }
         }
       ]
     }

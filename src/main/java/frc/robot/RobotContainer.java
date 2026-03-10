@@ -54,7 +54,13 @@ public class RobotContainer {
   public RobotContainer() {
     configureBindings();
     DriverStation.silenceJoystickConnectionWarning(true);
-    NamedCommands.registerCommand("Button_O", fuelSubsystem.setLaunch(-0.3)); // this references a command, but may need to change to subsystem?
+    NamedCommands.registerCommand("Intake", fuelSubsystem.setIntake(10));
+    NamedCommands.registerCommand("Feeder", fuelSubsystem.setFeeder(10));
+    NamedCommands.registerCommand("Launch", fuelSubsystem.setLaunch(12));
+
+    NamedCommands.registerCommand("Intake_Stop", fuelSubsystem.setIntake(0));
+    NamedCommands.registerCommand("Feeder_Stop", fuelSubsystem.setFeeder(0));
+    NamedCommands.registerCommand("Launch_Stop", fuelSubsystem.setLaunch(0));
     // NamedCommands.registerCommand("Intake", fuelSubsystem.setSpeed(0.0));
     // NamedCommands.registerCommand("Launch", fuelSubsystem.setSpeed(0.3));
     
