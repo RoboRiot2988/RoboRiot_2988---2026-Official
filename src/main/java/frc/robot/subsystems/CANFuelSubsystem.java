@@ -86,7 +86,15 @@ public class CANFuelSubsystem extends SubsystemBase {
     intakeRoller.set(0);
   }
 
-  public Command setLaunch(double speed) {
+ public Command setLauncher(double speed) {
+    return new InstantCommand(() -> launcherRoller.set(speed), this);
+  }
+
+ public Command setIntake(double speed) {
+    return new InstantCommand(() -> intakeRoller.set(speed), this);
+  }
+
+ public Command setFeeder(double speed) {
     return new InstantCommand(() -> feederRoller.set(speed), this);
   }
 
