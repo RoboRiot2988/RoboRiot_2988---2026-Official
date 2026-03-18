@@ -90,6 +90,14 @@ public class CANFuelSubsystem extends SubsystemBase {
     return new InstantCommand(() -> feederRoller.set(speed), this);
   }
 
+  public Command setIntake(double speed) {
+    return new InstantCommand(() -> intakeRoller.set(speed), this);
+  }
+
+  public Command setFeeder(double speed) {
+    return new InstantCommand(() -> feederRoller.set(speed), this);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
