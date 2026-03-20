@@ -20,6 +20,7 @@ import frc.robot.commands.Drive;
 import frc.robot.commands.Eject;
 import frc.robot.commands.ExampleAuto;
 import frc.robot.commands.Intake;
+import frc.robot.commands.Jiggle;
 import frc.robot.commands.Launch;
 import frc.robot.commands.LaunchSequence;
 import frc.robot.subsystems.CANDriveSubsystem;
@@ -91,7 +92,7 @@ public class RobotContainer {
     // While the right bumper on the operator controller is held, spin up for 1
     // second, then launch fuel. When the button is released, stop.
     driverController.rightTrigger().whileTrue(new Launch(fuelSubsystem));
-    driverController.b().whileTrue(new Jiggle(fuelSubsystem, driveSubsystem));
+    driverController.b().whileTrue(new Jiggle(driveSubsystem, fuelSubsystem));
     // While the A button is held on the operator controller, eject fuel back out
     // the intake
 
