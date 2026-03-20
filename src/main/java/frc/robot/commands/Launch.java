@@ -29,7 +29,7 @@ public class Launch extends Command {
     timer.start();
     staged = false;
 
-    fuelSubsystem.setLauncherRoller(12);
+    fuelSubsystem.setLauncherRoller(-12);
     fuelSubsystem.setFeederRoller(0);
     fuelSubsystem.setIntakeRoller(0);
   }
@@ -39,7 +39,7 @@ public class Launch extends Command {
   public void execute() {
     // after 0.5 seconds, enable feeder and intake while keeping launcher running
     if (!staged && timer.hasElapsed(0.75)) {
-      fuelSubsystem.setFeederRoller(12);
+      fuelSubsystem.setFeederRoller(-12);
       fuelSubsystem.setIntakeRoller(12);
       staged = true;
     }
