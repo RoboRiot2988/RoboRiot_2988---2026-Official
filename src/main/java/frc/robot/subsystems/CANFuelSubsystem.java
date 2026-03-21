@@ -31,7 +31,6 @@ public class CANFuelSubsystem extends SubsystemBase {
     intakeRoller = new SparkMax(INTAKE_MOTOR_ID, MotorType.kBrushless); 
     feederRoller = new SparkMax(FEEDER_MOTOR_ID, MotorType.kBrushless);
 
-
     // create the configuration for the feeder roller, set a current limit and apply
     // the config to the controller
     SparkMaxConfig feederConfig = new SparkMaxConfig();

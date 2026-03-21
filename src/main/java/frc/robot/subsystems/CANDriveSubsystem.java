@@ -4,6 +4,9 @@
 
 package frc.robot.subsystems;
 
+
+import com.ctre.phoenix6.hardware.Pigeon2;
+
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -11,6 +14,9 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -22,15 +28,29 @@ public class CANDriveSubsystem extends SubsystemBase {
   private final SparkMax rightLeader;
   private final SparkMax rightFollower;
 
-  private final RelativeEncoder m_leftEncoder;
-  private final RelativeEncoder m_rightEncoder;
+  private  RelativeEncoder m_leftEncoder;
+  private  RelativeEncoder m_rightEncoder;
+
+  private SparkMaxConfig left_motorConfig;
+  private SparkMaxConfig right_motorConfig;
 
   private SparkMaxConfig left_motor_config;
   private SparkMaxConfig right_motor_config;
 
   private final DifferentialDrive drive;
 
+  public final Pigeon2 m_gyro = new Pigeon2(0);
+
+  DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(
+  m_gyro.getRotation2d(),
+  m_leftEncoder.getPosition(), m_rightEncoder.getPosition(),
+  new Pose2d(5.0, 13.5, new Rotation2d()));
+
   public CANDriveSubsystem() {
+
+      // The gyro sensor
+
+
     // create brushed motors for drive
     leftLeader = new SparkMax(LEFT_LEADER_ID, MotorType.kBrushless);
     leftFollower = new SparkMax(LEFT_FOLLOWER_ID, MotorType.kBrushless);
@@ -46,9 +66,12 @@ public class CANDriveSubsystem extends SubsystemBase {
     left_motor_config.encoder.positionConversionFactor(2*Math.PI*6/2).velocityConversionFactor(2*Math.PI*6/2);
     left_motor_config.encoder.positionConversionFactor(2*Math.PI*6/2).velocityConversionFactor(2*Math.PI*6/2);
 
+  left_motorConfig.encoder.positionConversionFactor(Math.PI*6).velocityConversionFactor((Math.PI*6)/60); // 6 inches
+  right_motorConfig.encoder.positionConversionFactor(Math.PI*6).velocityConversionFactor((Math.PI*6)/60); // 6 inches
     // set up differential drive class
     drive = new DifferentialDrive(leftLeader, rightLeader);
 
+   m_leftEncoder.getPosition();
     // Set can timeout. Because this project only sets parameters once on
     // construction, the timeout can be long without blocking robot operation. Code
     // which sets or gets parameters during operation may need a shorter timeout.
