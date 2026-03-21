@@ -43,11 +43,12 @@ public class CANDriveSubsystem extends SubsystemBase {
     right_motorConfig = new SparkMaxConfig();
     left_motorConfig = new SparkMaxConfig();
 
-    right_motorConfig.encoder.positionConversionFactor(2*Math.PI*4).velocityConversionFactor((2*Math.PI*4)*(2*Math.PI*4)); // 4 inches
-
+  left_motorConfig.encoder.positionConversionFactor(Math.PI*6).velocityConversionFactor((Math.PI*6)/60); // 6 inches
+  right_motorConfig.encoder.positionConversionFactor(Math.PI*6).velocityConversionFactor((Math.PI*6)/60); // 6 inches
     // set up differential drive class
     drive = new DifferentialDrive(leftLeader, rightLeader);
 
+   m_leftEncoder.getPosition();
     // Set can timeout. Because this project only sets parameters once on
     // construction, the timeout can be long without blocking robot operation. Code
     // which sets or gets parameters during operation may need a shorter timeout.

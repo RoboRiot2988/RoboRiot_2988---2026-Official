@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+import static edu.wpi.first.units.Units.Meter;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -22,6 +23,14 @@ public final class Constants {
     public static final int RIGHT_LEADER_ID = 17;
     public static final int RIGHT_FOLLOWER_ID = 20;
 
+    public static final double kPinionTeeth = 14; // Adjust this to match your configuration!
+    public static final double kMotorFreeSpeed = 5676 / 60;
+    public static final double kDrivingMotorReduction = 990 / (kPinionTeeth * 15);
+    public static final double kWheelDiameterMeters = 0.1524;
+    public static final double kDrivingEncoderPositionFactor = (kWheelDiameterMeters * Math.PI)
+        / (double) kDrivingMotorReduction; // meters
+    public static final double kDrivingEncoderVelocityFactor = ((kWheelDiameterMeters * Math.PI)
+        / (double) kDrivingMotorReduction) / 60.0; // meters per second
     // Current limit for drivetrain motors. 60A is a reasonable maximum to reduce
     // likelihood of tripping breakers or damaging CIM motors
     public static final int DRIVE_MOTOR_CURRENT_LIMIT = 60;
