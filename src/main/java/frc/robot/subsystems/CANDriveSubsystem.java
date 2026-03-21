@@ -37,7 +37,7 @@ public class CANDriveSubsystem extends SubsystemBase {
     m_leftEncoder =leftLeader.getEncoder();
     m_rightEncoder = rightLeader.getEncoder();
 
-    m_leftEncoder.()
+    // m_leftEncoder.()
 
     // set up differential drive class
     drive = new DifferentialDrive(leftLeader, rightLeader);
