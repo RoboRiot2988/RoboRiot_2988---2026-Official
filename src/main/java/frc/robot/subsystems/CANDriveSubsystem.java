@@ -25,6 +25,9 @@ public class CANDriveSubsystem extends SubsystemBase {
   private final RelativeEncoder m_leftEncoder;
   private final RelativeEncoder m_rightEncoder;
 
+  private SparkMaxConfig left_motor_config;
+  private SparkMaxConfig right_motor_config;
+
   private final DifferentialDrive drive;
 
   public CANDriveSubsystem() {
@@ -37,7 +40,11 @@ public class CANDriveSubsystem extends SubsystemBase {
     m_leftEncoder =leftLeader.getEncoder();
     m_rightEncoder = rightLeader.getEncoder();
 
-    // m_leftEncoder.()
+    left_motor_config = new SparkMaxConfig();
+    right_motor_config = new SparkMaxConfig();
+
+    left_motor_config.encoder.positionConversionFactor(2*Math.PI*6/2).velocityConversionFactor(2*Math.PI*6/2);
+    left_motor_config.encoder.positionConversionFactor(2*Math.PI*6/2).velocityConversionFactor(2*Math.PI*6/2);
 
     // set up differential drive class
     drive = new DifferentialDrive(leftLeader, rightLeader);
