@@ -4,7 +4,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -14,6 +16,7 @@ import static frc.robot.Constants.OperatorConstants.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import frc.robot.commands.Button_O;
 import frc.robot.commands.Drive;
@@ -26,7 +29,12 @@ import frc.robot.commands.LaunchSequence;
 import frc.robot.subsystems.CANDriveSubsystem;
 import frc.robot.subsystems.CANFuelSubsystem;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.AutoBuilderException;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.util.GeometryUtil;
+
 
 // import com.pathplanner.lib.auto.PathPlannerAuto;
 
@@ -117,4 +125,20 @@ public class RobotContainer {
     // An example command will be run in autonomous
     return autoChooser.getSelected();
   }
+
+  //   public Command getAutonomousCommand() {
+  //   Pose2d startingPose = PathPlannerAuto.getStaringPoseFromAutoFile("Two Note");
+  //   Pose2d flipped;
+  //   Optional<Alliance> alliance = DriverStation.getAlliance();
+  //     if(alliance.isPresent() && alliance.get() == DriverStation.Alliance.Red) {
+  //       flipped=GeometryUtil.flipFieldPose(startingPose);
+  //        m_robotDrive.resetOdometry(flipped);
+  //     }else{
+  //        m_robotDrive.resetOdometry(startingPose);
+  //     }
+   
+  //   return new PathPlannerAuto("Two Note");
+    
+  //  // autoChoose/,mr.getSelected();5
+  // }
 }
