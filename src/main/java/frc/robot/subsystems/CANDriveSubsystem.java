@@ -4,6 +4,9 @@
 
 package frc.robot.subsystems;
 
+
+import com.ctre.phoenix6.hardware.Pigeon2;
+
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -11,6 +14,9 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -30,7 +36,18 @@ public class CANDriveSubsystem extends SubsystemBase {
 
   private final DifferentialDrive drive;
 
+  public final Pigeon2 m_gyro = new Pigeon2(0);
+
+  DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(
+  m_gyro.getRotation2d(),
+  m_leftEncoder.getPosition(), m_rightEncoder.getPosition(),
+  new Pose2d(5.0, 13.5, new Rotation2d()));
+
   public CANDriveSubsystem() {
+
+      // The gyro sensor
+
+
     // create brushed motors for drive
     leftLeader = new SparkMax(LEFT_LEADER_ID, MotorType.kBrushless);
     leftFollower = new SparkMax(LEFT_FOLLOWER_ID, MotorType.kBrushless);
