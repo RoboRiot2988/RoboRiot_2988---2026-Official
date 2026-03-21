@@ -6,12 +6,16 @@ package frc.robot;
 
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-
+import frc.robot.Constants.LEDConstants;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
+
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import edu.wpi.first.wpilibj.RobotController;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -26,6 +30,8 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+
+  private final Spark m_blinkin = new Spark(0);
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -76,6 +82,7 @@ public class Robot extends TimedRobot {
     // robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    updateAllianceColors();
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -141,5 +148,19 @@ public class Robot extends TimedRobot {
   /** This function is called periodically whilst in simulation. */
   @Override
   public void simulationPeriodic() {
+  }
+
+  private void updateAllianceColors() {
+    var alliance = DriverStation.getAlliance();
+
+    if (alliance.isPresent()) {
+      if (alliance.get() == DriverStation.Alliance.Red) {
+        m_blinkin.set(LEDConstants.FIXED_RED);
+      } else {
+        m_blinkin.set(LEDConstants.FIXED_BLUE);
+      }
+    } else {
+      m_blinkin.set(LEDConstants.BREATH_GRAY);
+    }
   }
 }
