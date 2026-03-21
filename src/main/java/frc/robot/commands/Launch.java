@@ -29,7 +29,7 @@ public class Launch extends Command {
     timer.start();
     staged = false;
 
-    fuelSubsystem.setLauncherRoller(-12);
+    fuelSubsystem.setLauncherRoller(-8);
     fuelSubsystem.setFeederRoller(0);
     fuelSubsystem.setIntakeRoller(0);
   }
