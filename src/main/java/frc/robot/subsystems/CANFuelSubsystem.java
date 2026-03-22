@@ -141,5 +141,6 @@ public class CANFuelSubsystem extends SubsystemBase {
     SmartDashboard.setDefaultNumber("Target Velocity", 0);
     SmartDashboard.setDefaultBoolean("Control Mode", false);
     SmartDashboard.setDefaultBoolean("Reset Encoder", false);
+    // SmartDashboard.setDefaultNumber(key:"Launcher Encoder",)
   }
 }

@@ -26,6 +26,7 @@ import frc.robot.commands.Intake;
 import frc.robot.commands.Jiggle;
 import frc.robot.commands.Launch;
 import frc.robot.commands.LaunchSequence;
+import frc.robot.commands.Launch_PID;
 import frc.robot.subsystems.CANDriveSubsystem;
 import frc.robot.subsystems.CANFuelSubsystem;
 
@@ -105,6 +106,8 @@ public class RobotContainer {
     // the intake
 
     driverController.a().whileTrue(new Eject(fuelSubsystem));
+    driverController.x().whileTrue(new Launch_PID(fuelSubsystem));
+
 
     // Set the default command for the drive subsystem to the command provided by
     // factory with the values provided by the joystick axes on the driver
