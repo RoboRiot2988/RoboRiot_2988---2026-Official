@@ -4,11 +4,17 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.ClosedLoopSlot;
+import com.revrobotics.spark.FeedbackSensor;
+import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -17,9 +23,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.FuelConstants.*;
 
 public class CANFuelSubsystem extends SubsystemBase {
+  
   private final SparkMax feederRoller;
   private final SparkMax launcherRoller;
   private final SparkMax intakeRoller;
+
+  private final RelativeEncoder m_launcherEncoder;
+  private final SparkMaxConfig launcher_motor_config;
+  private SparkClosedLoopController launcherController;
 
   //intakeLauncherRoller --> launcherRoller
   //new roller created: intakeRoller
@@ -30,6 +41,11 @@ public class CANFuelSubsystem extends SubsystemBase {
     launcherRoller = new SparkMax(LAUNCHER_MOTOR_ID, MotorType.kBrushless);
     intakeRoller = new SparkMax(INTAKE_MOTOR_ID, MotorType.kBrushless); 
     feederRoller = new SparkMax(FEEDER_MOTOR_ID, MotorType.kBrushless);
+
+    launcherController = launcherRoller.getClosedLoopController();
+    m_launcherEncoder =launcherRoller.getEncoder();
+    launcher_motor_config = new SparkMaxConfig();
+    launcher_motor_config.encoder.positionConversionFactor(1).velocityConversionFactor((1)/60);
 
     // create the configuration for the feeder roller, set a current limit and apply
     // the config to the controller
@@ -43,6 +59,23 @@ public class CANFuelSubsystem extends SubsystemBase {
     SparkMaxConfig launcherConfig = new SparkMaxConfig();
     launcherConfig.inverted(true);
     launcherConfig.smartCurrentLimit(LAUNCHER_MOTOR_CURRENT_LIMIT);
+    launcherConfig.closedLoop
+        .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+        // Set PID values for position control. We don't need to pass a closed loop
+        // slot, as it will default to slot 0.
+        .p(0.1)
+        .i(0)
+        .d(0)
+        .outputRange(-1, 1)
+        // Set PID values for velocity control in slot 1
+        .p(0.0001, ClosedLoopSlot.kSlot1)
+        .i(0, ClosedLoopSlot.kSlot1)
+        .d(0, ClosedLoopSlot.kSlot1)
+        .outputRange(-1, 1, ClosedLoopSlot.kSlot1)
+        .feedForward
+          // kV is now in Volts, so we multiply by the nominal voltage (12V)
+          .kV(12.0 / 5767, ClosedLoopSlot.kSlot1);
+
     launcherRoller.configure(launcherConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     // create the configuration for the intake roller, set a current limit and apply
@@ -73,6 +106,10 @@ public class CANFuelSubsystem extends SubsystemBase {
     launcherRoller.setVoltage(voltage);
   }
 
+  public void setLauncherRoller_PID(double targetVelocity){
+        launcherController.setSetpoint(targetVelocity,  ControlType.kVelocity, ClosedLoopSlot.kSlot1);
+  }
+
   // A method to set the voltage of the feeder roller
   public void setFeederRoller(double voltage) {
     feederRoller.setVoltage(voltage);
@@ -100,5 +137,9 @@ public class CANFuelSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.setDefaultNumber("Target Position", 0);
+    SmartDashboard.setDefaultNumber("Target Velocity", 0);
+    SmartDashboard.setDefaultBoolean("Control Mode", false);
+    SmartDashboard.setDefaultBoolean("Reset Encoder", false);
   }
 }
