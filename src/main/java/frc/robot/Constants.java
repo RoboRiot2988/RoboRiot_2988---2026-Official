@@ -25,7 +25,7 @@ public final class Constants {
 
     public static final double kPinionTeeth = 14; // Adjust this to match your configuration!
     public static final double kMotorFreeSpeed = 5676 / 60;
-    public static final double kDrivingMotorReduction = 990 / (kPinionTeeth * 15);
+    public static final double kDrivingMotorReduction =  8.45; // 990 / (kPinionTeeth * 15);
     public static final double kWheelDiameterMeters = 0.1524;
     public static final double kDrivingEncoderPositionFactor = (kWheelDiameterMeters * Math.PI)
         / (double) kDrivingMotorReduction; // meters
