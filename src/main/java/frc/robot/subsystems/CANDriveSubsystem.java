@@ -28,46 +28,37 @@ public class CANDriveSubsystem extends SubsystemBase {
   private final SparkMax rightLeader;
   private final SparkMax rightFollower;
 
-  private  RelativeEncoder m_leftEncoder;
-  private  RelativeEncoder m_rightEncoder;
+  private final RelativeEncoder m_leftEncoder, m_rightEncoder;
 
-  private SparkMaxConfig left_motorConfig;
-  private SparkMaxConfig right_motorConfig;
-
-  private SparkMaxConfig left_motor_config;
-  private SparkMaxConfig right_motor_config;
+  private final SparkMaxConfig left_motor_config;
+  private final SparkMaxConfig right_motor_config;
 
   private final DifferentialDrive drive;
 
+      // The gyro sensor
   public final Pigeon2 m_gyro = new Pigeon2(0);
 
-  DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(
-  m_gyro.getRotation2d(),
-  m_leftEncoder.getPosition(), m_rightEncoder.getPosition(),
-  new Pose2d(5.0, 13.5, new Rotation2d()));
-
   public CANDriveSubsystem() {
-
-      // The gyro sensor
-
 
     // create brushed motors for drive
     leftLeader = new SparkMax(LEFT_LEADER_ID, MotorType.kBrushless);
     leftFollower = new SparkMax(LEFT_FOLLOWER_ID, MotorType.kBrushless);
     rightLeader = new SparkMax(RIGHT_LEADER_ID, MotorType.kBrushless);
     rightFollower = new SparkMax(RIGHT_FOLLOWER_ID, MotorType.kBrushless);
-    
+
     m_leftEncoder =leftLeader.getEncoder();
     m_rightEncoder = rightLeader.getEncoder();
+
+    DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(
+      m_gyro.getRotation2d(),
+      m_leftEncoder.getPosition(), m_rightEncoder.getPosition(),
+      new Pose2d(5.0, 13.5, new Rotation2d()));
 
     left_motor_config = new SparkMaxConfig();
     right_motor_config = new SparkMaxConfig();
 
-    left_motor_config.encoder.positionConversionFactor(2*Math.PI*6/2).velocityConversionFactor(2*Math.PI*6/2);
-    left_motor_config.encoder.positionConversionFactor(2*Math.PI*6/2).velocityConversionFactor(2*Math.PI*6/2);
-
-  left_motorConfig.encoder.positionConversionFactor(Math.PI*6).velocityConversionFactor((Math.PI*6)/60); // 6 inches
-  right_motorConfig.encoder.positionConversionFactor(Math.PI*6).velocityConversionFactor((Math.PI*6)/60); // 6 inches
+    left_motor_config.encoder.positionConversionFactor(Math.PI*6).velocityConversionFactor((Math.PI*6)/60); // 6 inches
+    right_motor_config.encoder.positionConversionFactor(Math.PI*6).velocityConversionFactor((Math.PI*6)/60); // 6 inches
     // set up differential drive class
     drive = new DifferentialDrive(leftLeader, rightLeader);
 
