@@ -30,7 +30,7 @@ public class ExampleAuto extends SequentialCommandGroup {
 
 
     // ANGLED AUTO
-    new AutoDrive(driveSubsystem, -0.5, -0.5).withTimeout(1.5),
+    new AutoDrive(driveSubsystem, -0.5, -0.5).withTimeout(1.3),
     new AutoDrive(driveSubsystem, 0.0, 0.0).withTimeout(1.0),
 
     new Launch(ballSubsystem).withTimeout(3.5),
