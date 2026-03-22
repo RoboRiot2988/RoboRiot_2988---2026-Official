@@ -34,6 +34,9 @@ public class CANDriveSubsystem extends SubsystemBase {
   private SparkMaxConfig left_motorConfig;
   private SparkMaxConfig right_motorConfig;
 
+  private SparkMaxConfig left_motor_config;
+  private SparkMaxConfig right_motor_config;
+
   private final DifferentialDrive drive;
 
   public final Pigeon2 m_gyro = new Pigeon2(0);
@@ -57,8 +60,11 @@ public class CANDriveSubsystem extends SubsystemBase {
     m_leftEncoder =leftLeader.getEncoder();
     m_rightEncoder = rightLeader.getEncoder();
 
-    right_motorConfig = new SparkMaxConfig();
-    left_motorConfig = new SparkMaxConfig();
+    left_motor_config = new SparkMaxConfig();
+    right_motor_config = new SparkMaxConfig();
+
+    left_motor_config.encoder.positionConversionFactor(2*Math.PI*6/2).velocityConversionFactor(2*Math.PI*6/2);
+    left_motor_config.encoder.positionConversionFactor(2*Math.PI*6/2).velocityConversionFactor(2*Math.PI*6/2);
 
   left_motorConfig.encoder.positionConversionFactor(Math.PI*6).velocityConversionFactor((Math.PI*6)/60); // 6 inches
   right_motorConfig.encoder.positionConversionFactor(Math.PI*6).velocityConversionFactor((Math.PI*6)/60); // 6 inches

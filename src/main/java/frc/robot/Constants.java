@@ -67,4 +67,11 @@ public final class Constants {
     public static final double DRIVE_SCALING = .7;
     public static final double ROTATION_SCALING = .8;
   }
+
+  public class LEDConstants {
+    public static final double FIXED_RED = 0.61;
+    public static final double FIXED_BLUE = 0.87;
+    public static final double OFF = 0.99; // Black - off
+    public static final double BREATH_GRAY = -0.19; // Good waiting pttern
+  }
 }

@@ -74,7 +74,7 @@ public class RobotContainer {
     // Set the options to show up in the Dashboard for selecting auto modes. If you
     // add additional auto modes you can add additional lines here with
     // autoChooser.addOption
-    // autoChooser.setDefaultOption("Middle Auto", new ExampleAuto(driveSubsystem, fuelSubsystem));
+    autoChooser.setDefaultOption("Middle Auto", new ExampleAuto(driveSubsystem, fuelSubsystem));
 
     // populate event map
     // eventMap.put("INTAKE", new Intake(fuelSubsystem));
