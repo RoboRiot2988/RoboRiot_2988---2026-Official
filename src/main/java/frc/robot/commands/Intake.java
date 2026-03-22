@@ -25,7 +25,7 @@ public class Intake extends Command {
   @Override
   public void initialize() {
     fuelSubsystem.setLauncherRoller(0.0);
-    fuelSubsystem.setIntakeRoller(-12);
+    fuelSubsystem.setIntakeRoller(12);
     fuelSubsystem.setFeederRoller(SmartDashboard.getNumber("Intaking feeder roller value", INTAKING_FEEDER_VOLTAGE));
     fuelSubsystem.setLauncherRoller(-4);
   }
